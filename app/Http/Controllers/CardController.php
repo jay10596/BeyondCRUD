@@ -9,7 +9,6 @@ use App\Http\Resources\CardCollection;
 use App\Http\Requests\CardRequest;
 use App\Helper\Helper;
 
-
 class CardController extends Controller
 {
     public function index()
