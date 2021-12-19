@@ -23,8 +23,8 @@
         },
 
         watch: {
-            $route(to, from) {
-                // this.$store.dispatch('fetchCards', to.path)
+            '$route.params.filter': function (filter) {
+                this.$store.dispatch('fetchCards', filter)
             }
         }
     }
