@@ -24,8 +24,8 @@ class CardRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => ['required', 'numeric', 'unique:cards,number', 'digits:16'],
-            'cvv' => ['required', 'numeric', 'unique:cards,cvv', 'digits:3'],
+            'number' => ['required', 'numeric', 'digits:16'],
+            'cvv' => ['required', 'numeric', 'digits:3'],
             'owner' => ['required', 'string'],
             'expiration_date' => ['required', 'date']
         ];

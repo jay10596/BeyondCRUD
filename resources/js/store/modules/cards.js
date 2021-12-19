@@ -1,12 +1,27 @@
 const state = {
     cards: '',
+    form: {
+        number: '',
+        cvv: '',
+        owner: '',
+        expiration_date: ''
+    },
     status: '',
     errors: null,
+    updateMode: {
+        status: false,
+        id: null,
+        index: null
+    }
 };
 
 const getters = {
     cards: state => {
         return state.cards;
+    },
+
+    form: state => {
+        return state.form;
     },
 
     status: state => {
@@ -15,6 +30,10 @@ const getters = {
 
     errors: state => {
         return state.errors;
+    },
+
+    updateMode: state => {
+        return state.updateMode;
     }
 };
 
@@ -30,30 +49,31 @@ const actions = {
             .catch(err => commit('setErrors', err))
     },
 
-    createPost({commit, state}) {
-        axios.post('/api/posts', {body: state.body})
+    addCard({commit, state}) {
+        axios.post('/api/cards', state.form)
             .then(res => {
-                commit('pushPost', res.data)
-                commit('setPostBody', '')
+                commit('unsetForm')
+                commit('pushCard', res.data)
+                commit('unsetUpdateMode')
             })
-            .catch(err => commit('setPostErrors', err))
+            .catch(err => commit('setErrors', err))
     },
 
-    updatePost({commit, state}, post) {
-        axios.put('/api/cards/' + post.id, {body: post.body, image: post.image})
+    updateCard({commit, state}) {
+        axios.put('/api/cards/' + state.updateMode.id, state.form)
             .then(res => {
-                commit('pushPost', res.data)
-                commit('setPostBody', '')
+                commit('spliceCard', state.updateMode.index)
+                commit('unsetForm')
+                commit('unsetUpdateMode')
+                commit('pushCard', res.data)
             })
-            .catch(err => commit('setPostErrors', err))
+            .catch(err => commit('setErrors', err))
     },
 
-    deletePost({commit, state}, data) {
-        axios.delete('/api/posts/' + data.post_id)
-            .then(res => {
-                commit('splicePost', data)
-            })
-            .catch(err => commit('setPostErrors', err))
+    deleteCard({commit, state}, data) {
+        axios.delete('/api/cards/' + data.id)
+            .then(res => commit('spliceCard', data.index))
+            .catch(err => commit('setErrors', err))
     },
 };
 
@@ -63,32 +83,49 @@ const mutations = {
     },
 
     setStatus(state, status) {
-        state.postStatus = status
+        state.status = status
     },
 
     setErrors(state, err) {
-        state.postErrors = err.response
+        state.errors = err.response
     },
 
-    setPostBody(state, body) {
-        state.body = body
+    setForm(state, form) {
+        state.form = form
     },
 
-    pushPost(state, newPost) {
-        state.posts.unshift(newPost.data)
+    unsetForm(state) {
+        state.form = {
+            number: '',
+            cvv: '',
+            owner: '',
+            expiration_date: ''
+        }
     },
 
-    splicePost(state, data) {
-        state.posts.splice(data.index, 1)
+    setUpdateMode(state, data) {
+        state.updateMode = {
+            status: true,
+            id: data.id,
+            index: data.index,
+        }
     },
 
-    cancelEdit(state, post) {
-        state.posts.unshift(post)
+    unsetUpdateMode(state) {
+        state.updateMode = {
+            status: false,
+            id: null,
+            index: null
+        }
     },
 
-    pushLikes(state, data) {
-        state.posts[data.index].likes = data.likes
+    pushCard(state, newCard) {
+        state.cards.unshift(newCard)
     },
+
+    spliceCard(state, index) {
+        state.cards.splice(index, 1)
+    }
 };
 
 export default {

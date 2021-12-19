@@ -9,7 +9,7 @@ class CardCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'cards' => $this->collection,
+            'data' => $this->collection,
             'count' => $this->count(),
             'path' => '/cards'
         ];;

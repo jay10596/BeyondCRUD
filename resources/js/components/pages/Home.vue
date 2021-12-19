@@ -1,23 +1,22 @@
 <template>
     <div>
-        {{cards}}
+        <Form />
+
+        <Grid />
     </div>
 </template>
 
 <script>
+    import Form from '../sections/card/Form'
+    import Grid from '../sections/card/Grid'
 	import { mapGetters } from "vuex";
 
     export default {
         name: "Home",
 
-        computed: {
-            ...mapGetters({
-                cards: 'cards'
-            }),
-        },
-
-        mounted() {
-            this.$store.dispatch('fetchCards')
+        components: {
+            Form,
+            Grid
         },
     }
 </script>
