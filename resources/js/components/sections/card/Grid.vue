@@ -15,6 +15,10 @@
     export default {
         name: "Grid",
 
+        props: [
+            'filter'
+        ],
+
         components: {
             Tile
         },
@@ -26,7 +30,7 @@
         },
 
         mounted() {
-            this.$store.dispatch('fetchCards')
+            this.$store.dispatch('fetchCards', this.filter)
         }
     }
 </script>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Helper;
+use App\Models\Card;
 
 class Helper
 {
@@ -21,7 +22,7 @@ class Helper
             case '4':
                 return 'Visa';
             case '6':
-                return 'Maestro';
+                return 'Discover';
             default:
                 return 'Other';
         }
@@ -47,5 +48,25 @@ class Helper
         }
 
         return $sum % 10 == 0;
+    }
+
+    // Filter card types based on type or validity
+    public static function fetch_filtered_cards($filter)
+    {
+        switch ($filter)
+        {
+            case 'valid':
+                return Card::where('is_valid', 1)->get();
+            case 'invalid':
+                return Card::where('is_valid', 0)->get();
+            case 'mastercard':
+                return Card::where('type', 'Mastercard')->get();
+            case 'visa':
+                return Card::where('type', 'Visa')->get();
+            case 'discover':
+                return Card::where('type', 'Discover')->get();
+            default:
+                return Card::where('type', 'Other')->get();
+        }
     }
 }

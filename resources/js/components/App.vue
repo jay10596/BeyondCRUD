@@ -21,5 +21,11 @@
             Header,
             Footer
         },
+
+        watch: {
+            $route(to, from) {
+                // this.$store.dispatch('fetchCards', to.path)
+            }
+        }
     }
 </script>

@@ -3,36 +3,52 @@
         <b-form inline class="box" @submit="onSubmit" @reset="onReset">
             <b-row>
                 <b-col>
-                    <b-form-group label="Email address:" label-for="input-1" description="Do not include any space." feedback="fuck">
-                        <b-form-input v-model="form.number" type="number" id="number" placeholder="Enter 16 digit card no."></b-form-input>
+                    <b-form-group label="Card No:" label-for="input-1" description="Do not include any space.">
+                        <b-form-input v-model="form.number" type="number" id="number" placeholder="1111222233334444"></b-form-input>
 
-                        <b-form-invalid-feedback>Your user ID must be 5-12 characters long.</b-form-invalid-feedback>
+                        <b-form-invalid-feedback v-if="errors && errors.number" :state=false>
+                            <small v-for="(error, index) in errors.number" :key="index">
+                                {{error}}
+                            </small>
+                        </b-form-invalid-feedback>
                     </b-form-group>
                 </b-col>
 
                 <b-col>
-                    <b-form-group label="Email address:" label-for="input-1" description="Do not include any space." feedback="fuck">
-                        <b-form-input v-model="form.cvv" type="number" placeholder="CVV"></b-form-input>
+                    <b-form-group label="CVV:" label-for="input-1" description="Only 3 digits are allowed.">
+                        <b-form-input v-model="form.cvv" type="number" placeholder="754"></b-form-input>
 
-                        <b-form-invalid-feedback>Your user ID must be 5-12 characters long.</b-form-invalid-feedback>
+                        <b-form-invalid-feedback v-if="errors && errors.cvv" :state=false>
+                            <small v-for="(error, index) in errors.cvv" :key="index">
+                                {{error}}
+                            </small>
+                        </b-form-invalid-feedback>
                     </b-form-group>
                 </b-col>
             </b-row>
 
             <b-row>
                 <b-col>
-                    <b-form-group label="Email address:" label-for="input-1" description="Do not include any space." feedback="fuck">
-                        <b-form-input v-model="form.owner" type="text" placeholder="Greg Masvidal"></b-form-input>
+                    <b-form-group label="Owner:" label-for="input-1">
+                        <b-form-input v-model="form.owner" type="text" placeholder="Jack Masvidal"></b-form-input>
 
-                        <b-form-invalid-feedback>Your user ID must be 5-12 characters long.</b-form-invalid-feedback>
+                        <b-form-invalid-feedback v-if="errors && errors.owner" :state=false>
+                            <small v-for="(error, index) in errors.owner" :key="index">
+                                {{error}}
+                            </small>
+                        </b-form-invalid-feedback>
                     </b-form-group>
                 </b-col>
                 
                 <b-col>
-                    <b-form-group label="Email address:" label-for="input-1" description="Do not include any space." feedback="fuck">
-                        <b-form-input v-model="form.expiration_date" type="date" placeholder="2020/10"></b-form-input>
+                    <b-form-group label="Expiration Date:" label-for="input-1">
+                        <b-form-input v-model="form.expiration_date" type="date"></b-form-input>
 
-                        <b-form-invalid-feedback>Your user ID must be 5-12 characters long.</b-form-invalid-feedback>
+                        <b-form-invalid-feedback v-if="errors && errors.expiration_date" :state=false>
+                            <small v-for="(error, index) in errors.expiration_date" :key="index">
+                                {{error}}
+                            </small>
+                        </b-form-invalid-feedback>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -52,8 +68,9 @@
         computed: {
             ...mapGetters({
                 form: 'form',
-                updateMode: 'updateMode'
-            }),
+                updateMode: 'updateMode',
+                errors: 'errors'
+            })
         },
 
         methods: {

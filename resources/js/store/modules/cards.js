@@ -6,13 +6,13 @@ const state = {
         owner: '',
         expiration_date: ''
     },
-    status: '',
     errors: null,
     updateMode: {
         status: false,
         id: null,
         index: null
-    }
+    },
+    payload: null
 };
 
 const getters = {
@@ -24,28 +24,25 @@ const getters = {
         return state.form;
     },
 
-    status: state => {
-        return state.status;
-    },
-
     errors: state => {
         return state.errors;
     },
 
     updateMode: state => {
         return state.updateMode;
+    },
+
+    payload: state => {
+        return state.payload;
     }
 };
 
 const actions = {
-    fetchCards({commit, state}) {
-        commit('setStatus', 'loading')
+    fetchCards({commit, state}, filter) {
+        filter ? state.payload = 'api/cards/' + filter : state.payload = 'api/cards'
 
-        axios.get('api/cards')
-            .then(res => {
-                commit('setCards', res.data.data)
-                commit('setStatus', 'success')
-            })
+        axios.get(state.payload)
+            .then(res => commit('setCards', res.data.data))
             .catch(err => commit('setErrors', err))
     },
 
@@ -82,12 +79,8 @@ const mutations = {
         state.cards = cards
     },
 
-    setStatus(state, status) {
-        state.status = status
-    },
-
     setErrors(state, err) {
-        state.errors = err.response
+        state.errors = err.response.data.errors
     },
 
     setForm(state, form) {
@@ -101,6 +94,8 @@ const mutations = {
             owner: '',
             expiration_date: ''
         }
+
+        state.errors = null
     },
 
     setUpdateMode(state, data) {

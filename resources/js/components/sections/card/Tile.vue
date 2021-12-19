@@ -13,13 +13,13 @@
 
         <b-row class="card-middle">
             <b-col class="d-flex justify-content-between align-items-center">
-                <div v-if="card.type == 'Mastercard'">
-                    <i class="fab fa-cc-mastercard"></i>
+                <div v-if="card.type === 'Mastercard'">
+                    <i class="fab fa-cc-mastercard"></i> 
                 </div>
-                <div v-else-if="card.type == 'Visa'">
+                <div v-else-if="card.type === 'Visa'">
                     <i class="fab fa-cc-visa"></i>
                 </div>
-                <div v-else-if="card.type == 'Discover'">
+                <div v-else-if="card.type === 'Discover'">
                     <i class="fab fa-cc-discover"></i>
                 </div>
                 <div v-else>

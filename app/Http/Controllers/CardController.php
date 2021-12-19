@@ -101,4 +101,11 @@ class CardController extends Controller
 
 		return response('Deleted', 204);
     }
+
+    public function filter($filter)
+    {
+        $filtered_cards = Helper::fetch_filtered_cards($filter);
+
+        return new CardCollection($filtered_cards);
+    }
 }
