@@ -1,9 +1,11 @@
 <template>
-    <div>
-        <ul v-for="(card, index) in cards" :key="index">
-            <Tile :card=card :index=index />
-        </ul>
-    </div>
+    <section>
+        <b-row>
+            <b-col cols="4" v-for="(card, index) in cards" :key="index">
+                <Tile :card=card :index=index />
+            </b-col>
+        </b-row>
+    </section>
 </template>
 
 <script> 

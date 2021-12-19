@@ -1,0 +1,41 @@
+section {
+    margin: 6rem 0;
+}
+
+.section {
+    &-form {
+        .form {
+            &-group {
+                margin: 1rem 0;
+
+                label, small {margin: 0.5rem 0;}
+            }
+        }
+    }
+
+    &-tile {
+        .row {
+            --bs-gutter-y: 0;
+        }
+
+        .card {
+            &-top {
+                .icons {
+                    button {margin-left: 1rem;}
+                }
+            }
+
+            &-owner {text-transform: uppercase;}
+            &-number, &-cvv, &-date {font-family: monospace;}
+
+            &-middle {
+                padding: 2rem 0;
+
+                svg {
+                    width: 3rem;
+                    height: 3rem;
+                }
+            }
+        }
+    }
+}
