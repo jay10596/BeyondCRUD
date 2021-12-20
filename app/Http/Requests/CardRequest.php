@@ -23,11 +23,13 @@ class CardRequest extends FormRequest
      */
     public function rules()
     {
+        $today = date('yyyy/mm/dd');
+
         return [
             'number' => ['required', 'numeric', 'digits:16'],
             'cvv' => ['required', 'numeric', 'digits:3'],
             'owner' => ['required', 'string'],
-            'expiration_date' => ['required', 'date']
+            'expiration_date' => ['required', 'date', 'after:2020/12/21']
         ];
     }
 

@@ -1,5 +1,7 @@
 <template>
     <section class="section-form">
+        <Title :title="'Add Card'" />
+
         <b-form inline class="box" @submit="onSubmit" @reset="onReset">
             <b-row>
                 <b-col>
@@ -53,17 +55,24 @@
                 </b-col>
             </b-row>
 
-            <b-button type="submit" class="btn-primary">Submit</b-button>
-            <b-button type="reset" class="btn-seconfdary">Clear</b-button>
+            <div class="form-btn">
+                <b-button type="submit"  variant="dark" class="btn">Submit</b-button>
+                <b-button type="reset"  variant="danger" class="btn">Reset</b-button>
+            </div>
         </b-form>
     </section>
 </template>
 
 <script>
+    import Title from './Title.vue'
 	import { mapGetters } from "vuex";
 
     export default {
         name: "Form",
+
+        components: {
+            Title
+        },
 
         computed: {
             ...mapGetters({

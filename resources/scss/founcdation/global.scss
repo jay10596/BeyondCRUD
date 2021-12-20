@@ -1,4 +1,9 @@
 $bg-primary: #f4f8fd;
+$border: darkgrey;
+
+body {
+    font-family: sans-serif;
+}
 
 .row {
     --bs-gutter-x: 2rem;
@@ -8,6 +13,11 @@ $bg-primary: #f4f8fd;
 button {
     all: unset;
     cursor: pointer;
+}
+
+.btn {
+    min-width: 5rem;
+    padding: 0.75rem 1rem;
 }
 
 .box {

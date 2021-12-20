@@ -3,7 +3,7 @@
         <Header />
         
         <b-container>
-            <router-view />
+            <router-view :key="this.$route.path" />
         </b-container>
         
         <Footer />

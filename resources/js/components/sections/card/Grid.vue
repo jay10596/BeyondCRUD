@@ -1,14 +1,17 @@
 <template>
     <section>
+        <Title :title="'All Cards'" />
+
         <b-row>
-            <b-col cols="4" v-for="(card, index) in cards" :key="index">
-                <Tile :card=card :index=index />
+            <b-col cols="4" v-for="(card, index) in cards" :key="card.id + '-key'">
+                <Tile :card=card :index=index :type=card.type />
             </b-col>
         </b-row>
     </section>
 </template>
 
 <script> 
+    import Title from './Title'
     import Tile from './Tile'
 	import { mapGetters } from "vuex";
 
@@ -20,7 +23,8 @@
         ],
 
         components: {
-            Tile
+            Tile,
+            Title
         },
 
         computed: {

@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <h1>Footer</h1>
-    </div>
+    <footer>
+        <p>	&#9400; Developed by Jay Modi</p>
+    </footer>
 </template>
 
 <script>

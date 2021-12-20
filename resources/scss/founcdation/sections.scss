@@ -1,5 +1,37 @@
+header {
+    .nav {
+        padding: 1rem;
+        align-items: center;
+        border-bottom: 1px solid $border;
+        
+        &-home {
+            svg {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            font-size: 2rem;
+        }
+
+        &-link, a {
+            text-decoration: none;
+            color: black;
+            display: block;
+        }
+    }
+}
+
 section {
     margin: 6rem 0;
+
+    h3 {margin-bottom: 2.5rem;}
+}
+
+footer {
+    border-top: 1px solid $border;
+    text-align: center;
+
+    p {margin: 1.5rem 0;}
 }
 
 .section {
@@ -8,7 +40,25 @@ section {
             &-group {
                 margin: 1rem 0;
 
-                label, small {margin: 0.5rem 0;}
+                label {font-weight: 600;}
+
+                small {font-weight: 400;}
+
+                input {
+                    margin: 0.5rem 0 0.25rem;
+                    font-style: italic;
+                }
+
+                label, small, input::-webkit-input-placeholder {
+                    font-size: 0.75rem;
+                    margin: 0 0.25rem;
+                }
+            }
+
+            &-btn {
+                margin-top: 1rem;
+
+                .btn {margin-right: 2rem;}
             }
         }
     }
@@ -27,6 +77,8 @@ section {
 
             &-owner {text-transform: uppercase;}
             &-number, &-cvv, &-date {font-family: monospace;}
+            &-date {display: flex;}
+
 
             &-middle {
                 padding: 2rem 0;

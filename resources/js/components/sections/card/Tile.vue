@@ -2,24 +2,28 @@
     <div class="section-tile box">
          <b-row align-h="between" class="card-top">
             <b-col>
-                <h6 class="card-date">{{changeDateFormat(card.expiration_date)}}</h6>
+                <h6 class="card-date">
+                    {{changeDateFormat(card.expiration_date)}}
+                    <div v-if="card.is_valid">(Valid)</div>
+                    <div v-else>(Invalid)</div>
+                </h6>
             </b-col>
 
             <b-col class="d-flex justify-content-end icons">
                 <button @click="onUpdate(card.id, index)"><i class="far fa-edit"></i></button>
-                <button @click="onDelete(card.id, index)"><i class="far fa-trash-alt"></i></button>
+                <button @click="onDelete(card.id, index)"><i class="far fa-trash-alt text-danger"></i></button>
             </b-col>
         </b-row>
 
         <b-row class="card-middle">
             <b-col class="d-flex justify-content-between align-items-center">
-                <div v-if="card.type === 'Mastercard'">
+                <div v-if="card.type == 'Mastercard'">
                     <i class="fab fa-cc-mastercard"></i> 
                 </div>
-                <div v-else-if="card.type === 'Visa'">
+                <div v-else-if="card.type == 'Visa'">
                     <i class="fab fa-cc-visa"></i>
                 </div>
-                <div v-else-if="card.type === 'Discover'">
+                <div v-else-if="card.type == 'Discover'">
                     <i class="fab fa-cc-discover"></i>
                 </div>
                 <div v-else>
@@ -41,15 +45,16 @@
 </template>
 
 <script>
-    import moment from 'moment'
+    import moment from 'moment';
 	import { mapGetters } from "vuex";
 
     export default {
-        name: "Grid",
+        name: "Tile",
 
         props: [
             'card',
-            'index'
+            'index',
+            'type'
         ],
 
         computed: {
