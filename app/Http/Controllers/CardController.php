@@ -7,7 +7,6 @@ use App\Models\Card;
 use App\Http\Resources\Card as CardResource;
 use App\Http\Resources\CardCollection;
 use App\Http\Requests\CardRequest;
-use App\Helper\Helper;
 
 class CardController extends Controller
 {
@@ -60,12 +59,12 @@ class CardController extends Controller
         */
 
         $card = Card::create([
-            'number' => Helper::set_number_format($request->number),
+            'number' => Card::set_number_format($request->number),
             'cvv' => $request->cvv,
-            'type' => Helper::check_card_type($request->number[0]),
+            'type' => Card::check_card_type($request->number[0]),
             'owner' => $request->owner,
             'expiration_date' => $request->expiration_date,
-            'is_valid' => Helper::is_valid($request->number)
+            'is_valid' => Card::is_valid($request->number)
         ]);
 
         return response($card, 201);
@@ -84,12 +83,12 @@ class CardController extends Controller
     public function update(CardRequest $request, Card $card)
     {
         $card->update([
-            'number' => Helper::set_number_format($request->number),
+            'number' => $card->set_number_format($request->number),
             'cvv' => $request->cvv,
-            'type' => Helper::check_card_type($request->number[0]),
+            'type' => $card->check_card_type($request->number[0]),
             'owner' => $request->owner,
             'expiration_date' => $request->expiration_date,
-            'is_valid' => Helper::is_valid($request->number)
+            'is_valid' => $card->is_valid($request->number)
         ]);
 
 		return response($card, 202);
@@ -104,7 +103,7 @@ class CardController extends Controller
 
     public function filter($filter)
     {
-        $filtered_cards = Helper::fetch_filtered_cards($filter);
+        $filtered_cards = Card::fetch_filtered_cards($filter);
 
         return new CardCollection($filtered_cards);
     }
