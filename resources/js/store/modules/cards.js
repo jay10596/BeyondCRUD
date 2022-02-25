@@ -72,6 +72,12 @@ const actions = {
             .then(res => commit('spliceCard', data.index))
             .catch(err => commit('setErrors', err))
     },
+
+    showCard({commit, state}) {
+        axios.get('/api/cards/qweqwe')
+            .then(res => console.log(res))
+            .catch(err => commit('setErrors', err))
+    },
 };
 
 const mutations = {

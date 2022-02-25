@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Card;
 use App\Http\Resources\Card as CardResource;
 use App\Http\Resources\CardCollection;
+use App\Http\DataTransferObjects\CardResponseData;
+use App\Http\DataTransferObjects\CardData;
 use App\Http\Requests\CardRequest;
 
 class CardController extends Controller
@@ -14,7 +16,7 @@ class CardController extends Controller
     {
         $cards = Card::all();
 
-        return new CardCollection($cards);
+        return $this->cardCollection($cards);
     }
 
     public function create()
@@ -72,7 +74,7 @@ class CardController extends Controller
 
     public function show(Card $card)
     {
-        return new CardResource($card);
+        return $this->cardResource($card);
     }
 
     public function edit(Card $card)
@@ -103,8 +105,31 @@ class CardController extends Controller
 
     public function filter($filter)
     {
+        /*
+            $card = Card::first(); // to check a single card /api/cards/{whatever}
+            return $this->cardResource($card);
+        */
+
         $filtered_cards = Card::fetch_filtered_cards($filter);
 
-        return new CardCollection($filtered_cards);
+        return $this->cardCollection($filtered_cards);
+    }
+
+    public function cardResource($card) {
+        return new CardResponseData([
+            'resource' => CardData::fromModel($card)
+        ]);
+    }
+
+    public function cardCollection($card_data) {
+        $collection = array();
+
+        foreach($card_data as $card) {
+            array_push($collection, CardData::fromModel($card));
+        }
+
+        return new CardResponseData([
+            'collection' => $collection
+        ]);
     }
 }

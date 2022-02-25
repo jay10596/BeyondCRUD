@@ -35,6 +35,7 @@
 
         mounted() {
             this.$store.dispatch('fetchCards', this.filter)
+            this.$store.dispatch('showCard')
         }
     }
 </script>
